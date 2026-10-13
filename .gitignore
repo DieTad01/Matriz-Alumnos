@@ -1,0 +1,3 @@
+python/data/*.sqlite3
+python/data/*.sqlite3-shm
+python/data/*.sqlite3-wal
