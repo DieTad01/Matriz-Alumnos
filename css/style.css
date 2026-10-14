@@ -1,35 +1,456 @@
-body{
-    background-color: antiquewhite;
-    width: 100%;
+/* ====================
+   1. Colores generales
+   ==================== */
+:root {
+    --fondo: #f7f6f1;
+    --texto: #17252a;
+    --gris: #718084;
+    --rojo: #790101;
+    --rojo-oscuro: #3f3f3f;
+    --linea: #020000b9;
+    --blanco: #ffffff;
+    --verde-claro: #d8eee6;
 }
 
-header{
-    font-size: 40px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    text-align: center;
+/* ====================
+   2. Base de la página
+   ==================== */
+* {
+    box-sizing: border-box;
 }
 
-footer{
-    text-align: center;
+body {
+    margin: 0;
+    background: var(--fondo);
+    color: var(--texto);
+    font-family: 'DM Sans', Arial, sans-serif;
 }
 
-h2{
-    text-align: center;
-    font-size: 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+h1,
+h2,
+p {
+    margin-top: 0;
 }
 
-h3{
-    font-size: 20px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+h1,
+h2 {
+    font-family: 'Space Grotesk', sans-serif;
 }
 
-.piedepagina{
+.section-wrap {
+    width: min(1160px, calc(100% - 64px));
+    margin: 0 auto;
+}
+
+/* ====================
+   3. Encabezado
+   ==================== */
+.site-header {
+    width: min(1280px, calc(100% - 64px));
+    height: 84px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--texto);
+    font: 700 22px 'Space Grotesk', sans-serif;
+    text-decoration: none;
+}
+
+.brand-mark {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border-radius: 11px;
+    background: var(--texto);
+    color: var(--blanco);
+}
+
+.brand-accent,
+.header-action span {
+    color: var(--rojo);
+}
+
+.header-action,
+.text-link {
+    color: var(--rojo);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.header-action span {
+    margin-left: 6px;
+    font-size: 18px;
+}
+
+.dark-link {
+    color: var(--texto);
+}
+
+/* ====================
+   4. Elementos reutilizables
+   ==================== */
+.eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 20px;
+    color: var(--rojo);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+}
+
+.eyebrow-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--rojo);
+}
+
+.button {
+    border: 0;
+    border-radius: 9px;
+    padding: 15px 20px;
+    font: 600 14px 'DM Sans', sans-serif;
+    cursor: pointer;
+}
+
+.button-primary {
+    background: var(--rojo);
+    color: var(--blanco);
+    text-decoration: none;
+}
+
+.button-primary span {
+    margin-left: 18px;
+    font-size: 18px;
+}
+
+.body-copy,
+.hero-text {
+    color: var(--gris);
+    line-height: 1.7;
+}
+
+/* ====================
+   5. Página de inicio
+   ==================== */
+.hero {
+    min-height: 550px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 70px;
+    padding: 70px 0 60px;
+}
+
+.hero h1 {
+    max-width: 600px;
+    margin-bottom: 24px;
+    font-size: clamp(43px, 5.3vw, 72px);
+    line-height: 1.02;
+    letter-spacing: -.055em;
+}
+
+.hero h1 em {
+    color: var(--rojo);
+    font-style: normal;
+}
+
+.hero-text {
+    max-width: 500px;
+    margin-bottom: 32px;
+    font-size: 17px;
+}
+
+.hero-visual {
+    position: relative;
+    min-height: 430px;
+    display: grid;
+    place-items: center;
+}
+
+.visual-glow {
     position: absolute;
-    bottom: 0;
-    width: 100%;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: #eadada;
 }
 
-hr{
-    border: 2px solid black;
+.dashboard-preview {
+    position: relative;
+    width: min(390px, 90%);
+    padding: 27px;
+    border: 1px solid #ffffffa6;
+    border-radius: 18px;
+    background: #fffffff2;
+    box-shadow: 0 30px 65px #42616b25;
+    transform: rotate(4deg);
+}
+
+.preview-label,
+.preview-muted {
+    font-size: 12px;
+}
+
+.preview-label {
+    font-weight: 700;
+}
+
+.preview-muted {
+    color: var(--gris);
+}
+
+.preview-number {
+    display: block;
+    margin-top: 28px;
+    color: var(--rojo);
+    font: 700 58px 'Space Grotesk', sans-serif;
+}
+
+.preview-number span {
+    font-size: 25px;
+}
+
+.progress-bar {
+    height: 9px;
+    margin-top: 22px;
+    border-radius: 9px;
+    background: #e8eeee;
+    overflow: hidden;
+}
+
+.progress-bar span {
+    display: block;
+    width: 86%;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--rojo);
+}
+
+.floating-card {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 13px 16px;
+    border-radius: 12px;
+    background: var(--blanco);
+    box-shadow: 0 12px 30px #42616b22;
+    font-size: 11px;
+}
+
+.floating-card-top {
+    top: 55px;
+    right: -5px;
+}
+
+.floating-card-bottom {
+    bottom: 44px;
+    left: 5px;
+}
+
+.status-icon,
+.mini-avatar {
+    display: grid;
+    width: 30px;
+    height: 30px;
+    place-items: center;
+    border-radius: 9px;
+    background: var(--verde-claro);
+    color: var(--rojo);
+    font-weight: 700;
+}
+
+.mini-avatar {
+    background: #eadada;
+}
+
+.team {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    padding: 100px 0;
+}
+
+.team h2 {
+    font-size: 38px;
+    text-transform: uppercase;
+}
+
+.team-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.team-list span {
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--linea);
+    font-size: 14px;
+}
+
+.site-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 24px 0;
+    border-top: 1px solid var(--linea);
+    color: var(--gris);
+    font-size: 11px;
+}
+
+/* ====================
+   6. Panel
+   ==================== */
+.panel-page {
+    background: #f5f7f6;
+}
+
+.panel-main {
+    padding: 62px 0;
+}
+
+.panel-heading {
+    margin-bottom: 42px;
+}
+
+.panel-heading h1 {
+    margin-bottom: 12px;
+    font-size: 52px;
+}
+
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+.metric-card,
+.notice-card {
+    padding: 25px;
+    border: 1px solid var(--linea);
+    border-radius: 13px;
+    background: var(--blanco);
+}
+
+.metric-card span,
+.metric-card small {
+    display: block;
+    color: var(--gris);
+    font-size: 12px;
+}
+
+.metric-card strong {
+    display: block;
+    margin: 17px 0 10px;
+    font: 700 38px 'Space Grotesk', sans-serif;
+}
+
+.notice-card {
+    max-width: 600px;
+    margin-top: 18px;
+    background: var(--rojo-oscuro);
+    color: var(--blanco);
+}
+
+.notice-icon {
+    display: grid;
+    width: 35px;
+    height: 35px;
+    margin-bottom: 30px;
+    place-items: center;
+    border-radius: 10px;
+    background: #ffffff1c;
+}
+
+.notice-card p {
+    max-width: 500px;
+    color: #d8d8d8;
+    line-height: 1.7;
+}
+
+/* ====================
+   7. Animación y celular
+   ==================== */
+.animated-card {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity .45s ease, transform .45s ease;
+}
+
+.animated-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dashboard-preview.animated-card {
+    transform: translateY(12px) rotate(4deg);
+}
+
+.dashboard-preview.animated-card.visible {
+    transform: translateY(0) rotate(4deg);
+}
+
+@media (max-width: 800px) {
+    .site-header,
+    .section-wrap {
+        width: calc(100% - 38px);
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        padding-top: 45px;
+    }
+
+    .hero-visual {
+        min-height: 350px;
+    }
+
+    .team {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .metric-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .site-footer {
+        display: block;
+    }
+
+    .site-footer span {
+        display: block;
+        margin: 6px 0;
+    }
+}
+
+@media (max-width: 500px) {
+    .hero h1 {
+        font-size: 43px;
+    }
+
+    .floating-card {
+        transform: scale(.85);
+    }
+
+    .floating-card-top {
+        right: -20px;
+    }
+
+    .floating-card-bottom {
+        left: -18px;
+    }
 }

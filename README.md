@@ -26,6 +26,9 @@ python.exe -m pip install --upgrade pip
 python -m venv venv
 '''
 
+## Instalacion de Extencion Editor DB
+SQLite3 Editor
+
 
 1. Primer etapa
 >>>>>>> f542aa4a9e499efa9af76f5c47a7fe38b31b327b
