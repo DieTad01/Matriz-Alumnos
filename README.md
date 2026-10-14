@@ -2,7 +2,7 @@
 Proyecto de Fundamentos de Ingenieria de Software
 
 
-1.
+1. Base de datos
 La base SQLite se creó en [alumnos.sqlite3]. Su esquema contempla alumnos, intentos académicos, materias, retículas, especialidades y relaciones de prerrequisito. El historial permite registrar varios intentos por materia y separar calificación numérica de textual, como el código `ACA` de la boleta. 
 
 También quedaron cargados el programa y las dos opciones de especialidad con sus versiones de retícula. 

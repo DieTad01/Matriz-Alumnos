@@ -1,4 +1,10 @@
-"""Esquema y creación de la base de datos académica en SQLite."""
+"""
+Esquema y creación de la base de datos académica en SQLite.
+librerias utilizadas
+contextmanager: crear funciones utilizables con la estructura
+pathlib: rutas de archivos y carpetas
+sqlite3: base de datos SQLite 
+"""
 
 from contextlib import contextmanager
 from pathlib import Path
@@ -10,7 +16,7 @@ RUTA_BASE_DATOS = DIRECTORIO_PYTHON / "data" / "alumnos.sqlite3"
 
 ESQUEMA = """
 PRAGMA foreign_keys = ON;
-
+    
 CREATE TABLE IF NOT EXISTS programas (
     id INTEGER PRIMARY KEY,
     clave TEXT NOT NULL UNIQUE,
@@ -23,6 +29,7 @@ CREATE TABLE IF NOT EXISTS especialidades (
     nombre TEXT NOT NULL,
     version_reticula TEXT NOT NULL,
     creditos_totales REAL CHECK (creditos_totales IS NULL OR creditos_totales > 0)
+    
 );
 
 CREATE TABLE IF NOT EXISTS reticulas (
@@ -114,9 +121,8 @@ CREATE INDEX IF NOT EXISTS idx_materias_reticula
     ON materias_reticula(reticula_id);
 """
 
-
+"""Abre una conexión SQLite y activa la validación de llaves foráneas."""
 def conectar(ruta=RUTA_BASE_DATOS):
-    """Abre una conexión SQLite y activa la validación de llaves foráneas."""
     ruta = Path(ruta)
     ruta.parent.mkdir(parents=True, exist_ok=True)
     conexion = sqlite3.connect(ruta)
