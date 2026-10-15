@@ -7,9 +7,6 @@ js
 css
 python
 
-
-1. Base de datos
-=======
 # Instalaciones del entorno virtual
 ## Entorno virtual
 '''bash
@@ -36,3 +33,5 @@ La base SQLite se creó en [alumnos.sqlite3]. Su esquema contempla alumnos, inte
 También quedaron cargados el programa y las dos opciones de especialidad con sus versiones de retícula. 
 
 Aún no cargué al alumno ni el catálogo completo de materias y flechas; así evitamos asumir equivalencias, como las claves distintas de Cálculo Diferencial. El archivo SQLite se excluye de Git para que los datos académicos que agreguemos después no se suban por accidente.
+
+2. Segunda etapa creamos [panel.html] y [index.html] que son la pagina principal y secundaria para la utilizacion de la aplicacion en general solo estetica.
