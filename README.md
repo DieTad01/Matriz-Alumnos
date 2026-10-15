@@ -7,7 +7,7 @@ js
 css
 python
 
-<<<<<<< HEAD
+
 1. Base de datos
 =======
 # Instalaciones del entorno virtual
@@ -31,7 +31,6 @@ SQLite3 Editor
 
 
 1. Primer etapa
->>>>>>> f542aa4a9e499efa9af76f5c47a7fe38b31b327b
 La base SQLite se creó en [alumnos.sqlite3]. Su esquema contempla alumnos, intentos académicos, materias, retículas, especialidades y relaciones de prerrequisito. El historial permite registrar varios intentos por materia y separar calificación numérica de textual, como el código `ACA` de la boleta. 
 
 También quedaron cargados el programa y las dos opciones de especialidad con sus versiones de retícula. 
