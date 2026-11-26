@@ -37,27 +37,61 @@
         <!-- Datos registrados -->
         <section class="metric-grid">
             <article class="metric-card">
-                <span>Alumnos registrados</span>
-                <strong>128</strong>
-                <small>Dato de ejemplo</small>
+                <span>Alumnos procesados</span>
+                <strong id="total-alumnos">0</strong>
+                <small>Del último archivo importado</small>
             </article>
         </section>
 
-        <!-- Espacio reservado para importar archivos -->
+        <!-- Importación de la base de datos -->
         <section class="notice-card">
             <span class="notice-icon">✦</span>
             <h2>Archivos</h2>
             <p>
-            En esta sección se agregarán y recibirán los archivos necesarios para generar la matriz.
+            Sube tu base de datos en <strong>.sql</strong>
+            para generar la matriz. Máximo 50 MB.
             </p>
-            <button class="button button-primary" type="button">
-                Próximamente
-            </button>
+            <form id="form-importar">
+                <label class="file-label" for="archivo">Base de datos</label>
+                <input class="file-input" id="archivo" type="file"
+                    accept=".sql,.sqlite3,.sqlite,.db" required>
+                <button class="button button-primary" id="boton-importar" type="submit">
+                    Generar matriz
+                </button>
+            </form>
+            <p class="import-status" id="estado" role="status"></p>
+        </section>
+
+        <!-- Resultados; aparecen después de importar -->
+        <section class="results" id="resultados" hidden>
+            <div class="results-heading">
+                <h2>Resultados</h2>
+                <a class="button button-primary" id="descargar" download="matriz_resultados.xlsx">
+                    Descargar Excel
+                </a>
+            </div>
+            <ul id="advertencias"></ul>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Matrícula</th>
+                            <th>Nombre</th>
+                            <th>Semestre</th>
+                            <th>Créditos</th>
+                            <th>Materias</th>
+                        </tr>
+                    </thead>
+                    <tbody id="filas"></tbody>
+                </table>
+            </div>
         </section>
     </main>
 
     <!--Anmimaciones -->
     <script src="../js/animaciones.js"></script>
+    <!-- Subida de la base de datos y resultados -->
+    <script src="../js/importar.js"></script>
 </body>
 
 </html>

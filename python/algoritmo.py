@@ -1,19 +1,17 @@
 from itertools import combinations
-from database import obtener_conexion
+from database import RUTA_BASE_DATOS, obtener_conexion
 
 
 def evaluar_alumno(conn, alumno: dict) -> dict:
-    """Aplica las reglas duras de retícula y créditos para un alumno."""
+    """Aplica las reglas duras de retícula, especiales y límite de 4 a 8 materias."""
     alumno_id = alumno["id"]
 
-    # Obtener retícula asignada
     ret = conn.execute(
         "SELECT id FROM reticulas WHERE especialidad_id = ? LIMIT 1",
         (alumno["especialidad_actual_id"],),
     ).fetchone() or conn.execute("SELECT id FROM reticulas LIMIT 1").fetchone()
     reticula_id = ret["id"]
 
-    # Materias ya aprobadas
     aprobadas = {
         r["materia_id"]
         for r in conn.execute(
@@ -38,15 +36,17 @@ def evaluar_alumno(conn, alumno: dict) -> dict:
     especiales = [dict(r) for r in especiales_rows if r["id"] not in aprobadas]
 
     if len(especiales) >= 2:
+        creditos_esp = sum(m["creditos"] for m in especiales[:2])
         return {
             "detenido": True,
             "motivo": "Tiene 2 o más materias en especial; solo puede cursar esas.",
             "carga_ideal": especiales[:2],
             "margen_opciones": [],
-            "creditos_ideales": sum(m["creditos"] for m in especiales[:2]),
+            "creditos_ideales": creditos_esp,
+            "cumple_minimo": creditos_esp >= 20,
         }
 
-    # Regla 3: Filtrar materias no aprobadas cuyos prerrequisitos ya se aprobaron
+    # Regla 3: Filtrar materias no aprobadas con prerrequisitos cumplidos
     catalogo = conn.execute(
         """
         SELECT mr.id AS mr_id, m.id, m.clave, m.nombre,
@@ -82,35 +82,33 @@ def evaluar_alumno(conn, alumno: dict) -> dict:
         if reqs.issubset(aprobadas):
             desbloqueadas.append(dict(mat))
 
-    # Regla 4: Priorizar rezago (semestre_sugerido menor primero)
+    # Regla 4: Priorizar rezago
     desbloqueadas.sort(key=lambda x: x["semestre_sugerido"])
 
-    # Regla 5 y 6: Sumar créditos (mín 24, máx 32) + margen de elección (hasta 42)
+    # Regla 5 y 6: Hasta 8 materias ideales + 4 de margen para que Laya elija
     carga_ideal = list(especiales)
     margen_opciones = []
-    creditos = sum(m["creditos"] for m in carga_ideal)
 
     for mat in desbloqueadas:
-        if creditos + mat["creditos"] <= 32:
+        if len(carga_ideal) < 8:
             carga_ideal.append(mat)
-            creditos += mat["creditos"]
-        elif creditos + mat["creditos"] <= 42:
+        elif len(margen_opciones) < 4:
             margen_opciones.append(mat)
-            creditos += mat["creditos"]
 
+    creditos_ideales = sum(m["creditos"] for m in carga_ideal)
     return {
         "detenido": False,
-        "motivo": "Carga calculada respetando prerrequisitos y créditos.",
+        "motivo": "Carga calculada respetando prerrequisitos (mínimo 20 créditos, máximo 8 materias).",
         "carga_ideal": carga_ideal,
         "margen_opciones": margen_opciones,
-        "creditos_ideales": sum(m["creditos"] for m in carga_ideal),
+        "creditos_ideales": creditos_ideales,
+        "cumple_minimo": creditos_ideales >= 20,
     }
 
 
-def generar_proyeccion_global() -> dict:
+def generar_proyeccion_global(ruta=RUTA_BASE_DATOS) -> dict:
     """Procesa todos los alumnos ordenados y construye la matriz triangular."""
-    with obtener_conexion() as conn:
-        # Regla 1: Mayor semestre (máx 14) y mayor promedio
+    with obtener_conexion(ruta) as conn:
         alumnos = conn.execute(
             """
             SELECT a.id, a.matricula, a.nombre, a.semestre_actual, a.especialidad_actual_id,
@@ -131,7 +129,6 @@ def generar_proyeccion_global() -> dict:
             eval_al = evaluar_alumno(conn, al_dict)
             resultados.append({"alumno": al_dict, **eval_al})
 
-            # Regla 7: Matriz triangular de intersecciones
             claves = sorted(m["clave"] for m in eval_al["carga_ideal"])
             for c1, c2 in combinations(claves, 2):
                 par = f"{c1} <-> {c2}"

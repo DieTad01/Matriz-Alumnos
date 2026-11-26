@@ -382,6 +382,79 @@ h2 {
     line-height: 1.7;
 }
 
+.file-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.file-input {
+    display: block;
+    max-width: 100%;
+    margin-bottom: 18px;
+}
+
+.button:disabled {
+    opacity: .6;
+    cursor: wait;
+}
+
+.import-status {
+    margin: 16px 0 0;
+    overflow-wrap: anywhere;
+}
+
+.import-status:empty {
+    display: none;
+}
+
+.results {
+    margin-top: 36px;
+}
+
+.results-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.results-heading h2 {
+    margin: 0;
+}
+
+.table-wrap {
+    max-height: 520px;
+    overflow: auto;
+    border: 1px solid var(--linea);
+    border-radius: 13px;
+    background: var(--blanco);
+}
+
+.table-wrap table {
+    width: 100%;
+    min-width: 700px;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.table-wrap th,
+.table-wrap td {
+    padding: 11px 14px;
+    border-bottom: 1px solid #e3e3e3;
+    text-align: left;
+    vertical-align: top;
+}
+
+.table-wrap th {
+    position: sticky;
+    top: 0;
+    background: var(--blanco);
+}
+
 /* ====================
    7. Animación y celular
    ==================== */

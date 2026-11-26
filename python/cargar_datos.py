@@ -45,7 +45,7 @@ def poblar_desde_excel(ruta_excel: str = "matriz sistemas agodic26.xlsx"):
         ).fetchone()
         mr_int = conn.execute(
             """SELECT mr.id FROM materias_reticula mr JOIN materias m ON m.id = mr.materia_id
-               WHERE m.clave = 'ACF0903' AND mr.reticula_id = ?""",
+               WHERE m.clave = 'ACF0902' AND mr.reticula_id = ?""",
             (reticula["id"],),
         ).fetchone()
         if mr_dif and mr_int:
