@@ -35,3 +35,7 @@ También quedaron cargados el programa y las dos opciones de especialidad con su
 Aún no cargué al alumno ni el catálogo completo de materias y flechas; así evitamos asumir equivalencias, como las claves distintas de Cálculo Diferencial. El archivo SQLite se excluye de Git para que los datos académicos que agreguemos después no se suban por accidente.
 
 2. Segunda etapa creamos [panel.html] y [index.html] que son la pagina principal y secundaria para la utilizacion de la aplicacion en general solo estetica.
+
+# Levantar servidor y acceder
+.\venv\Scripts\python.exe -m uvicorn main:app --app-dir python --port 8000
+http://127.0.0.1:8000/html/panel.html
